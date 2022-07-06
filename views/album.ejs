@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head style="padding: 0% !important; margin: 0% !important;">
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>XEIDESAL</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/public/img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/public/style.css">
+
+</head>
+
+
+<body style="padding: 0% !important; margin: 0% !important;">
+
+
+    <%- include('header.ejs') %>
+
+    <!-- ##### Hero Area Start ##### -->
+    <div style="background-image: url('<%= dados[0].foto_artista %>'); height: 510px; background-repeat: no-repeat; background-position-x: center;" class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4" style="margin-top: 34%; margin-left: -10%;">
+                    <a href="<%= dados[0].foto_album %>" target="_blank" style="cursor: default;">
+                        <img src="<%= dados[0].foto_album %>" class="foto-perfil">
+                    </a>
+                </div>
+                <div class="col-sm-3" style="margin-top: 45%; margin-left: -3%;">
+                    <div class="row">
+                        <p class="h2"><%= dados[0].album %></p>
+                    </div>
+                    <div class="row">
+                        <a href="/artista/<%= dados[0].id_artista %>" class="ancora-pagina">
+                            <p class="h6"><%= ' ' + dados[0].artista %></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style=" margin-top: 8% !important; margin-left: 5% !important;">
+        <% for(cont = 0; cont < musica.length; cont++){ %>
+        <section class="featured-artist-area section-padding-100">
+            <div class="container">
+                <div class="row align-items-end">
+                    <div class="col-12 col-md-5 col-lg-3 text-center">
+                        <div class="featured-artist-thumb">
+                            <img src="<%= musica[cont].foto_album %>" class="foto-musica">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-7 col-lg-8">
+                        <div class="featured-artist-content">
+                            <!-- Section Heading -->
+                            <div class="text-left mb-30">
+                                <h2 style="color: #000;"><%= musica[cont].ordem + '- ' + musica[cont].musica %></h2>
+                                <div class="row ml-1">
+                                    <a href="/album/<%= musica[cont].id_album %>" class="ancora-pagina">
+                                        <p class="h6" style="color: #000;"><%= musica[0].album + ' ' %></p>
+                                    </a>
+                                    <pre class="h6" style="overflow-y: hidden;"> - </pre>
+                                    <a href="/artista/<%= musica[cont].id_artista %>" class="ancora-pagina">
+                                        <p class="h6" style="color: #000;"><%= ' ' + musica[0].artista %></p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="song-play-area">
+                                <audio preload="auto" controls>
+                                    <source src="<%= musica[cont].arquivo %>">
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <% } %>
+    </div>
+    
+    <%- include ('footer.ejs') %>
+
+</body>
+
+</html>
