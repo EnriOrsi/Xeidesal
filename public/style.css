@@ -1844,11 +1844,6 @@ img {
     height: 200px;
 }
 
-.linha{
-    margin-left: 10%;
-    margin-right: 1%;
-}
-
 .ancora-pagina{
     text-decoration-line: none;
     font-weight: normal;
@@ -1945,7 +1940,7 @@ img {
 }
 
 .iconFooter {
-    width: 20rem !important;
+    max-width: 20rem !important;
 }
 
 .direitoCopia{
@@ -2005,6 +2000,10 @@ img {
   position: absolute;
   top: 40rem;
   left: -8rem;
+}
+
+a.h2:hover{
+  font-size: 2rem !important;
 }
 
 /* ====== The End ====== */ 

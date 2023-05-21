@@ -1,3 +1,5 @@
+const { log } = require('console');
+
 module.exports = function (app) {
     var md5 = require('md5');
     const request = require('request');
@@ -7,7 +9,7 @@ module.exports = function (app) {
     /* Inicio Configurações Spotify */
     var client_id = 'bd247d0548274e0a90b3816492365ce0'; // Your client id
     var client_secret = '440426de7dc14712a0aae64164473dc9'; // Your secret
-    var redirect_uri = 'http://localhost:3000/logado'; // Your redirect uri
+    var redirect_uri = 'http://192.168.0.107:3000/logado'; // Your redirect uri
 
     /**
      * Generates a random string containing numbers and letters
@@ -32,21 +34,22 @@ module.exports = function (app) {
 
     app.get('/', function (req, res) {
         var sess = req.session;
-        var conexao = app.infra.conexao();
-        var usuarioBanco = new app.infra.bancoUsuario(conexao);
         if (sess.logado) {
             if (sess.logado == 1) {
-                res.redirect('/logado');
+                var perfil = {
+                    url: 'https://api.spotify.com/v1/me',
+                    headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                    json: true
+                };
+                request.get(perfil, function (error, response, perfil) {
+                    res.render('index.ejs', { 'dados': perfil, 'page': 'home' });
+                });
             } else {
-                res.render('index.ejs');
+                res.render('index.ejs', {'page': 'home'});
             }
         } else {
-            res.render('index.ejs');
+            res.render('index.ejs', {'page': 'home'});
         }
-    });
-
-    app.get('/adm', function (req, res) {
-        res.redirect('/perfil');
     });
 
     app.get('/loginSpotify', function (req, res) {
@@ -94,7 +97,6 @@ module.exports = function (app) {
                 request.post(authOptions, function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         sess.access_token = body.access_token;
-                        sess.logado = 1;
                         var perfil = {
                             url: 'https://api.spotify.com/v1/me',
                             headers: { 'Authorization': 'Bearer ' + sess.access_token },
@@ -102,7 +104,8 @@ module.exports = function (app) {
                         };
                         request.get(perfil, function (error, response, perfil) {
                             sess.email = perfil.email;
-                            res.render('logado.ejs', { 'dados': perfil });
+                            sess.logado = 1;
+                            res.redirect('/');
                         });
                     } else {
                         res.redirect('/erro' +
@@ -167,7 +170,21 @@ module.exports = function (app) {
                                         json: true
                                     };
                                     request.get(top10Track, function (error, response, top10Track) {
-                                        res.render('perfil.ejs', { 'dados': perfil, 'topArtist': topArtist, 'followedArtists': followedArtists, 'savedAlbuns': savedAlbuns, 'topTrack': topTrack, 'top10Track': top10Track });
+                                        var Playlists = {
+                                            url: 'https://api.spotify.com/v1/me/playlists',
+                                            headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                                            json: true
+                                        }
+                                        request.get(Playlists, function(error, response, playlists){
+                                            var lastTracks = {
+                                                url: 'https://api.spotify.com/v1/me/player/recently-played?limit=12',
+                                                headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                                                json: true
+                                            }
+                                            request.get(lastTracks, function(error, response, lastTracks){
+                                                res.render('index.ejs', { 'dados': perfil, 'topArtist': topArtist, 'followedArtists': followedArtists, 'savedAlbuns': savedAlbuns, 'topTrack': topTrack, 'top10Track': top10Track, 'playlists': playlists, 'lastTracks': lastTracks, 'page': 'perfil' });
+                                            });
+                                        });
                                     });
                                 });
                             });
@@ -185,277 +202,4 @@ module.exports = function (app) {
     app.get('/user/:id', function (req, res) {
         res.redirect('/');
     });
-
-    app.get('/album/:id', function (req, res) {
-        var id = req.params.id;
-        var sess = req.session;
-        var conexao = app.infra.conexao();
-        var usuarioMusicas = new app.infra.bancoMusicas(conexao);
-        if (sess.logado) {
-            if (sess.logado == 1) {
-                res.redirect('/albumLogado/' + id);
-            } else {
-                usuarioMusicas.album(id, function (erro, resposta) {
-                    if (erro) {
-                        console.log(erro);
-                        res.redirect('/erro');
-                    }
-                    else {
-                        usuarioMusicas.musicasAlbum(id, function (error, resultado) {
-                            if (error) {
-                                console.log(error);
-                                res.redirect('/erro');
-                            }
-                            else {
-                                res.render('album.ejs', { 'dados': resposta, 'musica': resultado });
-                            }
-                        });
-                    }
-                });
-            }
-        } else {
-            usuarioMusicas.album(id, function (erro, resposta) {
-                if (erro) {
-                    console.log(erro);
-                    res.redirect('/erro');
-                }
-                else {
-                    usuarioMusicas.musicasAlbum(id, function (error, resultado) {
-                        if (error) {
-                            console.log(error);
-                            res.redirect('/erro');
-                        }
-                        else {
-                            res.render('album.ejs', { 'dados': resposta, 'musica': resultado });
-                        }
-                    });
-                }
-            });
-        }
-    });
-
-    app.get('/artista/:id', function (req, res) {
-        var id = req.params.id;
-        var sess = req.session;
-        var conexao = app.infra.conexao();
-        var usuarioMusicas = new app.infra.bancoMusicas(conexao);
-        if (sess.logado) {
-            if (sess.logado == 1) {
-                usuarioMusicas.artista(id, function (erro, resultado) {
-                    if (erro) {
-                        console.log(erro);
-                        res.redirect('/erro');
-                    }
-                    else {
-                        var usuarioBanco = new app.infra.bancoUsuario(conexao);
-                        usuarioBanco.find(sess.email, function (erro, resposta) {
-                            if (erro) {
-                                console.log(erro);
-                                res.redirect('/erro');
-                            } else {
-                                usuarioMusicas.albunsArtista(id, function (error, retorno) {
-                                    if (error) {
-                                        console.log(error);
-                                        res.redirect('/erro');
-                                    }
-                                    else {
-                                        res.render('artistaLogado.ejs', { 'dados': resposta, 'artista': resultado, 'album': retorno });
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-
-            } else {
-                usuarioMusicas.artista(id, function (erro, resposta) {
-                    if (erro) {
-                        console.log(erro);
-                        res.redirect('/erro');
-                    }
-                    else {
-                        usuarioMusicas.albunsArtista(id, function (error, resultado) {
-                            if (error) {
-                                console.log(error);
-                                res.redirect('/erro');
-                            }
-                            else {
-                                res.render('artista.ejs', { 'dados': resposta, 'album': resultado });
-                            }
-                        });
-                    }
-                });
-            }
-        } else {
-            usuarioMusicas.artista(id, function (erro, resposta) {
-                if (erro) {
-                    console.log(erro);
-                    res.redirect('/erro');
-                }
-                else {
-                    usuarioMusicas.albunsArtista(id, function (error, resultado) {
-                        if (error) {
-                            console.log(error);
-                            res.redirect('/erro');
-                        }
-                        else {
-                            res.render('artista.ejs', { 'dados': resposta, 'album': resultado });
-                        }
-                    });
-                }
-            });
-        }
-    });
-
-    /*
-    app.get('/adm', function (req, res) {
-        res.redirect('/perfil');
-    });
-
-    app.get('/configuracoes/:email', function (req, res) {
-        var sess = req.session;
-        var conexao = app.infra.conexao();
-        var usuarioBanco = new app.infra.bancoUsuario(conexao);
-        if (sess.logado) {
-            if (sess.logado == 1) {
-                if (sess.tipeUser == 1) {
-                    usuarioBanco.find(sess.email, function (erro, resposta) {
-                        if (erro) {
-                            console.log(erro);
-                            res.redirect('/erro');
-                        } else {
-                            res.render('configuracoes.ejs', { 'dados': resposta });
-                        }
-                    });
-                } else if (sess.tipeUser == 0) {
-                    usuarioBanco.find(sess.email, function (erro, resposta) {
-                        if (erro) {
-                            console.log(erro);
-                            res.redirect('/erro');
-                        } else {
-                            res.render('configuracoes.ejs', { 'dados': resposta });
-                        }
-                    });
-                } else if (sess.tipeUser == 2) {
-                    res.redirect('/mod');
-                }
-            } else {
-                res.redirect('/');
-            }
-        } else {
-            res.redirect('/');
-        }
-    });
-
-    app.get('/musicas', function (req, res) {
-        var sess = req.session;
-        var conexao = app.infra.conexao();
-        var usuarioMusicas = new app.infra.bancoMusicas(conexao);
-        if (sess.logado) {
-            if (sess.logado == 1) {
-                res.redirect('/musicasLogado');
-            } else {
-                usuarioMusicas.lista(function (erro, resposta) {
-                    if (erro) {
-                        console.log(erro);
-                        res.redirect('/erro');
-                    }
-                    else {
-                        res.render('musicas.ejs', { 'dados': resposta });
-                    }
-                });
-            }
-        } else {
-            usuarioMusicas.lista(function (erro, resposta) {
-                if (erro) {
-                    console.log(erro);
-                    res.redirect('/erro');
-                }
-                else {
-                    res.render('musicas.ejs', { 'dados': resposta });
-                }
-            });
-        }
-    });
-
-    app.get('/albuns', function (req, res) {
-        var sess = req.session;
-        var conexao = app.infra.conexao();
-        var usuarioMusicas = new app.infra.bancoMusicas(conexao);
-        if (sess.logado) {
-            if (sess.logado == 1) {
-                res.redirect('/albunsLogado');
-            } else {
-                usuarioMusicas.listaAlbum(function (erro, resposta) {
-                    if (erro) {
-                        console.log(erro);
-                        res.redirect('/erro');
-                    }
-                    else {
-                        res.render('albuns.ejs', { 'dados': resposta });
-                    }
-                });
-            }
-        } else {
-            usuarioMusicas.listaAlbum(function (erro, resposta) {
-                if (erro) {
-                    console.log(erro);
-                    res.redirect('/erro');
-                }
-                else {
-                    res.render('albuns.ejs', { 'dados': resposta });
-                }
-            });
-        }
-    });
-    
-    app.get('/artistas', function (req, res) {
-        var sess = req.session;
-        var conexao = app.infra.conexao();
-        var usuarioMusicas = new app.infra.bancoMusicas(conexao);
-        if (sess.logado) {
-            if (sess.logado == 1) {
-                usuarioMusicas.listaArtista(function (erro, resultado) {
-                    if (erro) {
-                        console.log(erro);
-                        res.redirect('/erro');
-                    }
-                    else {
-                        var usuarioBanco = new app.infra.bancoUsuario(conexao);
-                        usuarioBanco.find(sess.email, function (erro, resposta) {
-                            if (erro) {
-                                console.log(erro);
-                                res.redirect('/erro');
-                            } else {
-                                res.render('artistasLogado.ejs', { 'dados': resposta, 'artistas': resultado });
-                            }
-                        });
-                    }
-                });
-
-            } else {
-                usuarioMusicas.listaArtista(function (erro, resposta) {
-                    if (erro) {
-                        console.log(erro);
-                        res.redirect('/erro');
-                    }
-                    else {
-                        res.render('artistas.ejs', { 'dados': resposta });
-                    }
-                });
-            }
-        } else {
-            usuarioMusicas.listaArtista(function (erro, resposta) {
-                if (erro) {
-                    console.log(erro);
-                    res.redirect('/erro');
-                }
-                else {
-                    res.render('artistas.ejs', { 'dados': resposta });
-                }
-            });
-        }
-    });
-    */
-
 }

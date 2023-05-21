@@ -1,63 +1,69 @@
-$('a#favArtists').on('click', function () {
-    $("div#favArtists").removeClass("invisible");
-    $("div#favAlbuns").addClass("invisible");
-    $("div#usersTop").addClass("invisible");
-    $('div#topArtists').addClass('invisible');
-    $('div#topMusics').addClass('invisible');
+$('a#lastTracks').on('click', function () {
+    $('a#lastTracks').addClass('active');
+    $('a#topArtists').removeClass('active');
+    $('a#topMusics').removeClass('active');
+    $('a#followedArtists').removeClass('active');
+    $('a#savedAlbuns').removeClass('active');
 
-    $("div#favArtists").addClass("visible");
-    $("div#favAlbuns").removeClass("visible");
-    $("div#usersTop").removeClass("visible");
-    $('div#topArtists').removeClass('visible');
-    $('div#topMusics').removeClass('visible');
+    $('div#lastTracks').html(lastTracks);
+    $('div#topArtists').html('');
+    $('div#topMusics').html('');
+    $('div#followedArtists').html('');
+    $('div#savedAlbuns').html('');
 });
 
-$('a#favAlbuns').on('click', function () {
-    $("div#favArtists").addClass("invisible");
-    $("div#favAlbuns").removeClass("invisible");
-    $("div#usersTop").addClass("invisible");
-    $('div#topArtists').addClass('invisible');
-    $('div#topMusics').addClass('invisible');
-
-    $("div#favArtists").removeClass("visible");
-    $("div#favAlbuns").addClass("visible");
-    $("div#usersTop").removeClass("visible");
-    $('div#topArtists').removeClass('visible');
-    $('div#topMusics').removeClass('visible');
-});
-
-$('a#usersTop').on('click', function () {
-    $("div#favArtists").addClass("invisible");
-    $("div#favAlbuns").addClass("invisible");
-    $("div#usersTop").removeClass("invisible");
-    $('div#topArtists').addClass('invisible');
-    $('div#topMusics').addClass('invisible');
-
-    $("div#favArtists").removeClass("visible");
-    $("div#favAlbuns").removeClass("visible");
-    $("div#usersTop").addClass("visible");
-    $('div#topArtists').removeClass('visible');
-    $('div#topMusics').removeClass('visible');
-});
-
-$('a#topArtists').on('click', function(){
+$('a#topArtists').on('click', function () {
+    $('a#lastTracks').removeClass('active');
     $('a#topArtists').addClass('active');
     $('a#topMusics').removeClass('active');
+    $('a#followedArtists').removeClass('active');
+    $('a#savedAlbuns').removeClass('active');
 
-    $('div#topArtists').removeClass('invisible');
-    $('div#topMusics').addClass('invisible');
-
-    $('div#topArtists').addClass('visible');
-    $('div#topMusics').removeClass('visible');
+    $('div#lastTracks').html('');
+    $('div#topArtists').html(topArtists);
+    $('div#topMusics').html('');
+    $('div#followedArtists').html('');
+    $('div#savedAlbuns').html('');
 });
 
-$('a#topMusics').on('click', function(){
+$('a#topMusics').on('click', function () {
+    $('a#lastTracks').removeClass('active');
     $('a#topArtists').removeClass('active');
     $('a#topMusics').addClass('active');
+    $('a#followedArtists').removeClass('active');
+    $('a#savedAlbuns').removeClass('active');
 
-    $('div#topArtists').addClass('invisible');
-    $('div#topMusics').removeClass('invisible');
+    $('div#lastTracks').html('');
+    $('div#topArtists').html('');
+    $('div#topMusics').html(topMusics);
+    $('div#followedArtists').html('');
+    $('div#savedAlbuns').html('');
+});
 
-    $('div#topArtists').removeClass('visible');
-    $('div#topMusics').addClass('visible');
+$('a#followedArtists').on('click', function () {
+    $('a#lastTracks').removeClass('active');
+    $('a#topArtists').removeClass('active');
+    $('a#topMusics').removeClass('active');
+    $('a#followedArtists').addClass('active');
+    $('a#savedAlbuns').removeClass('active');
+
+    $('div#lastTracks').html('');
+    $('div#topArtists').html('');
+    $('div#topMusics').html('');
+    $('div#followedArtists').html(followedArtists);
+    $('div#savedAlbuns').html('');
+});
+
+$('a#savedAlbuns').on('click', function () {
+    $('a#lastTracks').removeClass('active');
+    $('a#topArtists').removeClass('active');
+    $('a#topMusics').removeClass('active');
+    $('a#followedArtists').removeClass('active');
+    $('a#savedAlbuns').addClass('active');
+
+    $('div#lastTracks').html('');
+    $('div#topArtists').html('');
+    $('div#topMusics').html('');
+    $('div#followedArtists').html('');
+    $('div#savedAlbuns').html(savedAlbuns);
 });

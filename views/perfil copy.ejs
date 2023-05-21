@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+
+
+    <!-- Title -->
+    <title>XEIDESAL</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/public/img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/public/style.css">
+
+    <!-- Croppie Stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css" integrity="sha512-2eMmukTZtvwlfQoG8ztapwAH5fXaQBzaMqdljLopRSA0i6YKM8kBAOrSSykxu9NN9HrtD45lIqfONLII2AFL/Q==" crossorigin="anonymous" />
+
+</head>
+
+<body style="background-color: #555;">
+    
+    <%- include ('header.ejs') %>
+
+    <!-- ##### Header Area End ##### -->
+    <div style="background-image: url('<%= topArtist.items[0].images[0].url %>'); background-size: cover; height: 350px; background-repeat: no-repeat; background-position-x: center; background-position-y: 15%;" class="container-fluid">
+        <div class=" d-flex justify-content-between">
+            <div>
+                <img src="<%= dados.images[0].url %>" class="foto-perfil">
+                <p class="nome-perfil"> <%= dados.display_name %> </p>
+            </div>
+            <div>
+                <p class="text-white topTrack-title"> Música mais escutada (todos os tempos):</p>
+                <p class="text-white topTrack"> <%= topTrack.items[0].name %> </p>
+                <p class="text-white topTrack-info">
+                    <a href="/album/<%= topTrack.items[0].id %>" class="text-decoration-none" style="color: #fff !important;">
+                        <%= topTrack.items[0].artists[0].name %> 
+                    </a>
+                    -
+                    <a href="/album/<%= topTrack.items[0].album.id %>" class="text-decoration-none" style="color: #fff !important;">
+                        <%= topTrack.items[0].album.name %>
+                    </a>
+                </p>
+                <img src="<%= topTrack.items[0].album.images[0].url %>" class="foto-topTrack rounded-3">
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <ul class="list-inline options-perfil" style="max-width: 40rem !important;">
+                <li class="list-inline-item"><a class="text-white abaPerfil" id="usersTop">Mais Escutados</a></li>
+                <li class="list-inline-item"><a class="text-white abaPerfil" id="favArtists">Artistas Favoritos</a></li>
+                <li class="list-inline-item"><a class="text-white abaPerfil" id="favAlbuns">Albuns Favoritos</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center visible" id="usersTop" style="margin-left: 11rem !important; margin-top: 8rem !important; max-width: 85rem !important;">
+        <ul class="nav nav-tabs" style="width: 100% !important;">
+            <li class="nav-item">
+              <a class="nav-link text-white abaPerfil active" id="topArtists">Artistas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white abaPerfil" id="topMusics">Músicas</a>
+            </li>
+        </ul>
+    </div>
+ 
+    
+    <div class="usersTop visible d-flex justify-content-center" id="topArtists" style="margin-left: 16.5rem !important; max-width: 85rem !important;">
+        <div class="container-fluid mt-3 bot">
+            <div class="row linha justify-content-center">
+                <% var r; for (i=0; i < topArtist.items.length; i++){  %>
+                        <div class="container-fluid d-flex justify-content-center col" style="margin-bottom: 3rem !important;">
+                            <a href="<%= topArtist.items[i].external_urls.spotify %>" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                                <div class="card bg-white text-dark d-flex justify-content-center tamanhoCard">
+                                    <img src="<%= topArtist.items[i].images[0].url %>" class="card-img-top" alt="<%= topArtist.items[i].name %>">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><%= topArtist.items[i].name %></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                <%r++; if(r==3){%>
+                <div class="row linha justify-content-center">
+                    <% }} %>
+            </div>
+        </div>
+    </div>
+    
+    <div class="usersTop invisible d-flex justify-content-center" id="topMusics" style="margin-left: 16.5rem !important; max-width: 85rem !important;">
+        <div class="container-fluid mt-3 bot">
+            <div class="row linha justify-content-center">
+                <% var r; for (i=0; i < top10Track.items.length; i++){  %>
+                        <div class="container-fluid d-flex justify-content-center col" style="margin-bottom: 3rem !important;">
+                            <a href="<%= top10Track.items[i].external_urls.spotify %>" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                                <div class="card bg-white text-dark d-flex justify-content-center tamanhoCard">
+                                    <img src="<%= top10Track.items[i].album.images[0].url %>" class="card-img-top" alt="<%= top10Track.items[i].name %>">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><%= top10Track.items[i].name %></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                <%r++; if(r==3){%>
+                <div class="row linha justify-content-center">
+                    <% }} %>
+            </div>
+        </div>
+    </div>
+
+    <div class="teste invisible" id="favArtists">
+        <div class="container-fluid mt-3 bot">
+            <div class="d-flex justify-content-end">
+                <p class="text-white" style="margin-right: 3rem !important;margin-top: 3rem !important; margin-bottom: -8rem !important;">Showing 50 Artists</p>
+            </div>
+            <h1 class="h1 favs">Artistas Favoritos</h1>
+            <div class="row linha justify-content-center">
+                <% var r; for (i=0; i < followedArtists.artists.items.length; i++){  %>
+                        <div class="container-fluid d-flex justify-content-center col" style="margin-bottom: 3rem !important;">
+                            <a href="<%= followedArtists.artists.items[i].external_urls.spotify %>" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                                <div class="card bg-white text-dark d-flex justify-content-center tamanhoCard">
+                                    <img src="<%= followedArtists.artists.items[i].images[0].url %>" class="card-img-top" alt="<%= followedArtists.artists.items[i].name %>">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><%= followedArtists.artists.items[i].name %></h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                <%r++; if(r==3){%>
+                <div class="row linha justify-content-center">
+                    <% }} %>
+            </div>
+        </div>
+    </div>
+    
+    <div class="teste invisible" id="favAlbuns">
+        <div class="container-fluid mt-3 bot">
+            <div class="d-flex justify-content-end">
+                <p class="text-white" style="margin-right: 3rem !important;margin-top: 3rem !important; margin-bottom: -8rem !important;">Showing 50 Albuns</p>
+            </div>
+            <h1 class="h1 favs">Albuns Favoritos</h1>
+            <div class="row linha justify-content-center">
+                <% var r; for (i=0; i < savedAlbuns.items.length; i++){  %>
+                        <div class="container-fluid d-flex justify-content-center col" style="margin-bottom: 3rem !important;">
+                            <a href="<%= savedAlbuns.items[i].album.external_urls.spotify %>" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                                <div class="card bg-white text-dark d-flex justify-content-center tamanhoCard">
+                                    <img src="<%= savedAlbuns.items[i].album.images[0].url %>" class="card-img-top" alt="<%= savedAlbuns.items[i].album.name %>">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><%= savedAlbuns.items[i].album.name %></h5>
+                                        <h6 class="card-title text-center"><%= savedAlbuns.items[i].album.artists[0].name %></h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                <%r++; if(r==3){%>
+                <div class="row linha justify-content-center">
+                    <% }} %>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Croppie js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js" integrity="sha512-vUJTqeDCu0MKkOhuI83/MEX5HSNPW+Lw46BA775bAWIp1Zwgz3qggia/t2EnSGB9GoS2Ln6npDmbJTdNhHy1Yw==" crossorigin="anonymous"></script>
+    <!-- Script de Recorte de Imagem Capa -->
+    <script src="/public/scripts/headerPicsUpload.js"></script>
+    <!-- Script de Recorte de Imagem Capa 
+        <script src="/public/scripts/profilePicsUpload.js"></script> -->
+    <!-- Script de troca de aba -->
+    <script src="/public/scripts/logic.js"></script>
+    
+
+    <%- include ('footer.ejs') %>
+
+</body>
+
+</html>
