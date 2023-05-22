@@ -4,9 +4,9 @@ module.exports = function (app) {
 
 
     /* Inicio Configurações Spotify */
-    var client_id = 'bd247d0548274e0a90b3816492365ce0'; // Your client id
-    var client_secret = '440426de7dc14712a0aae64164473dc9'; // Your secret
-    var redirect_uri = 'http://192.168.0.107:3000/logado'; // Your redirect uri
+    var client_id = '2041645555134d819a21a1dda5901819'; // Your client id
+    var client_secret = '4c362160bad3403892442af8de884516'; // Your secret
+    var redirect_uri = 'https://xeidesal.onrender.com/logado'; // Your redirect uri
 
     /**
      * Generates a random string containing numbers and letters
