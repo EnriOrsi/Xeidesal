@@ -49,6 +49,7 @@ module.exports = function (app) {
                         json: true
                     };
                     request.get(topArtist, function (error, response, topArtist) {
+                        console.log(topArtist.items);
                         var seed = topArtist.items[0].id;
                         for (i = 1; i < topArtist.items.length; i++) {
                             seed = seed + ',' + topArtist.items[i].id;
@@ -96,7 +97,7 @@ module.exports = function (app) {
         res.cookie(stateKey, state);
 
         // your application requests authorization
-        var scope = 'user-read-playback-position user-read-email user-library-read user-top-read playlist-modify-public ugc-image-upload user-follow-modify user-modify-playback-state user-read-recently-played user-read-private playlist-read-private user-library-modify playlist-read-collaborative playlist-modify-private user-follow-read user-read-playback-state user-read-currently-playing';
+        var scope = 'user-read-playback-position user-read-email user-library-read user-top-read user-follow-modify user-read-recently-played user-read-private playlist-read-private playlist-read-collaborative user-follow-read user-read-playback-state user-read-currently-playing';
         res.redirect('https://accounts.spotify.com/authorize?' +
             querystring.stringify({
                 response_type: 'code',
