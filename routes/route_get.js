@@ -1,9 +1,4 @@
-const {
-    log
-} = require('console');
-
 module.exports = function (app) {
-    var md5 = require('md5');
     const request = require('request');
     var querystring = require('querystring');
 
