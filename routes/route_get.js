@@ -49,7 +49,7 @@ module.exports = function (app) {
                         json: true
                     };
                     request.get(topArtist, function (error, response, topArtist) {
-                        console.log(topArtist.items);
+                        console.log(topArtist);
                         var seed = topArtist.items[0].id;
                         for (i = 1; i < topArtist.items.length; i++) {
                             seed = seed + ',' + topArtist.items[i].id;
