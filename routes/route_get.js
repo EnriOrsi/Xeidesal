@@ -4,8 +4,8 @@ module.exports = function (app) {
 
 
     /* Inicio Configurações Spotify */
-    var client_id = '2041645555134d819a21a1dda5901819'; // Your client id
-    var client_secret = '4c362160bad3403892442af8de884516'; // Your secret
+    var client_id = 'bd247d0548274e0a90b3816492365ce0'; // Your client id
+    var client_secret = '440426de7dc14712a0aae64164473dc9'; // Your secret
     var redirect_uri = 'https://xeidesal.onrender.com/logado'; // Your redirect uri
 
     /**
@@ -49,7 +49,6 @@ module.exports = function (app) {
                         json: true
                     };
                     request.get(topArtist, function (error, response, topArtist) {
-                        console.log(topArtist);
                         var seed = topArtist.items[0].id;
                         for (i = 1; i < topArtist.items.length; i++) {
                             seed = seed + ',' + topArtist.items[i].id;
