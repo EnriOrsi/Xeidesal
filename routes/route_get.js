@@ -1,4 +1,6 @@
-const { log } = require('console');
+const {
+    log
+} = require('console');
 
 module.exports = function (app) {
     var md5 = require('md5');
@@ -38,17 +40,59 @@ module.exports = function (app) {
             if (sess.logado == 1) {
                 var perfil = {
                     url: 'https://api.spotify.com/v1/me',
-                    headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                    headers: {
+                        'Authorization': 'Bearer ' + sess.access_token
+                    },
                     json: true
                 };
                 request.get(perfil, function (error, response, perfil) {
-                    res.render('index.ejs', { 'dados': perfil, 'page': 'home' });
+                    var topArtist = {
+                        url: 'https://api.spotify.com/v1/me/top/artists?limit=3',
+                        headers: {
+                            'Authorization': 'Bearer ' + sess.access_token
+                        },
+                        json: true
+                    };
+                    request.get(topArtist, function (error, response, topArtist) {
+                        var seed = topArtist.items[0].id;
+                        for (i = 1; i < topArtist.items.length; i++) {
+                            seed = seed + ',' + topArtist.items[i].id;
+                        }
+                        var recommendations = {
+                            url: 'https://api.spotify.com/v1/recommendations?limit=12&seed_artists=' + seed,
+                            headers: {
+                                'Authorization': 'Bearer ' + sess.access_token
+                            },
+                            json: true
+                        };
+                        request.get(recommendations, function (error, response, recommendations) {
+                            var newReleases = {
+                                url: 'https://api.spotify.com/v1/browse/new-releases?limit=10',
+                                headers: {
+                                    'Authorization': 'Bearer ' + sess.access_token
+                                },
+                                json: true
+                            };
+                            request.get(newReleases, function (error, response, newReleases) {
+                                res.render('index.ejs', {
+                                    'dados': perfil,
+                                    'recommendations': recommendations,
+                                    'newReleases': newReleases,
+                                    'page': 'home'
+                                });
+                            });
+                        });
+                    });
                 });
             } else {
-                res.render('index.ejs', {'page': 'home'});
+                res.render('index.ejs', {
+                    'page': 'home'
+                });
             }
         } else {
-            res.render('index.ejs', {'page': 'home'});
+            res.render('index.ejs', {
+                'page': 'home'
+            });
         }
     });
 
@@ -99,7 +143,9 @@ module.exports = function (app) {
                         sess.access_token = body.access_token;
                         var perfil = {
                             url: 'https://api.spotify.com/v1/me',
-                            headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                            headers: {
+                                'Authorization': 'Bearer ' + sess.access_token
+                            },
                             json: true
                         };
                         request.get(perfil, function (error, response, perfil) {
@@ -136,53 +182,79 @@ module.exports = function (app) {
             if (sess.logado == 1) {
                 var perfil = {
                     url: 'https://api.spotify.com/v1/me',
-                    headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                    headers: {
+                        'Authorization': 'Bearer ' + sess.access_token
+                    },
                     json: true
                 };
                 request.get(perfil, function (error, response, perfil) {
                     var topArtist = {
                         url: 'https://api.spotify.com/v1/me/top/artists?limit=10',
-                        headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                        headers: {
+                            'Authorization': 'Bearer ' + sess.access_token
+                        },
                         json: true
                     };
                     request.get(topArtist, function (error, response, topArtist) {
                         var followedArtists = {
                             url: 'https://api.spotify.com/v1/me/following?type=artist&limit=50',
-                            headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                            headers: {
+                                'Authorization': 'Bearer ' + sess.access_token
+                            },
                             json: true
                         };
                         request.get(followedArtists, function (error, response, followedArtists) {
                             var savedAlbuns = {
                                 url: 'https://api.spotify.com/v1/me/albums?limit=50',
-                                headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                                headers: {
+                                    'Authorization': 'Bearer ' + sess.access_token
+                                },
                                 json: true
                             };
                             request.get(savedAlbuns, function (error, response, savedAlbuns) {
                                 var topTrack = {
                                     url: 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=1',
-                                    headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                                    headers: {
+                                        'Authorization': 'Bearer ' + sess.access_token
+                                    },
                                     json: true
                                 };
                                 request.get(topTrack, function (error, response, topTrack) {
                                     var top10Track = {
                                         url: 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=10',
-                                        headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                                        headers: {
+                                            'Authorization': 'Bearer ' + sess.access_token
+                                        },
                                         json: true
                                     };
                                     request.get(top10Track, function (error, response, top10Track) {
                                         var Playlists = {
                                             url: 'https://api.spotify.com/v1/me/playlists',
-                                            headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                                            headers: {
+                                                'Authorization': 'Bearer ' + sess.access_token
+                                            },
                                             json: true
                                         }
-                                        request.get(Playlists, function(error, response, playlists){
+                                        request.get(Playlists, function (error, response, playlists) {
                                             var lastTracks = {
                                                 url: 'https://api.spotify.com/v1/me/player/recently-played?limit=12',
-                                                headers: { 'Authorization': 'Bearer ' + sess.access_token },
+                                                headers: {
+                                                    'Authorization': 'Bearer ' + sess.access_token
+                                                },
                                                 json: true
                                             }
-                                            request.get(lastTracks, function(error, response, lastTracks){
-                                                res.render('index.ejs', { 'dados': perfil, 'topArtist': topArtist, 'followedArtists': followedArtists, 'savedAlbuns': savedAlbuns, 'topTrack': topTrack, 'top10Track': top10Track, 'playlists': playlists, 'lastTracks': lastTracks, 'page': 'perfil' });
+                                            request.get(lastTracks, function (error, response, lastTracks) {
+                                                res.render('index.ejs', {
+                                                    'dados': perfil,
+                                                    'topArtist': topArtist,
+                                                    'followedArtists': followedArtists,
+                                                    'savedAlbuns': savedAlbuns,
+                                                    'topTrack': topTrack,
+                                                    'top10Track': top10Track,
+                                                    'playlists': playlists,
+                                                    'lastTracks': lastTracks,
+                                                    'page': 'perfil'
+                                                });
                                             });
                                         });
                                     });

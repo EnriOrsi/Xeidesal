@@ -24,318 +24,99 @@
     <!-- ##### Hero Area End ##### -->
     <% if (typeof dados != 'undefined'){ %>
         <!-- ##### Latest Albums Area Start ##### -->
-        <section class="latest-albums-area section-padding-100" style="background-color: #fff;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-heading style-2">
-
-                            <h2>Últimos Álbuns</h2>
+        <div id="novosAlbuns">
+            <section class="latest-albums-area section-padding-100" style="background-color: #fff;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section-heading style-2">
+    
+                                <h2>Lançamentos Recentes</h2>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-12 col-lg-9">
-                        <div class="ablums-text text-center mb-70">
-                            <p>Os melhores hits nos melhores e mais recentes álbuns músicais lançados atualmente.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="albums-slideshow owl-carousel">
-                            <!-- Single Album -->
-                            <div class="single-album">
-                                <img src="/public/img/bg-img/a1.jpg" alt="">
-                                <div class="album-info">
-                                    <a href="#">
-                                        <h5>The Cure</h5>
-                                    </a>
-                                    <p>Second Song</p>
-                                </div>
-                            </div>
-
-                            <!-- Single Album -->
-                            <div class="single-album">
-                                <img src="/public/img/bg-img/a2.jpg" alt="">
-                                <div class="album-info">
-                                    <a href="#">
-                                        <h5>Sam Smith</h5>
-                                    </a>
-                                    <p>Underground</p>
-                                </div>
-                            </div>
-
-                            <!-- Single Album -->
-                            <div class="single-album">
-                                <img src="/public/img/bg-img/a3.jpg" alt="">
-                                <div class="album-info">
-                                    <a href="#">
-                                        <h5>Will I am</h5>
-                                    </a>
-                                    <p>First</p>
-                                </div>
-                            </div>
-
-                            <!-- Single Album -->
-                            <div class="single-album">
-                                <img src="/public/img/bg-img/a4.jpg" alt="">
-                                <div class="album-info">
-                                    <a href="#">
-                                        <h5>The Cure</h5>
-                                    </a>
-                                    <p>Second Song</p>
-                                </div>
-                            </div>
-
-                            <!-- Single Album -->
-                            <div class="single-album">
-                                <img src="/public/img/bg-img/a5.jpg" alt="">
-                                <div class="album-info">
-                                    <a href="#">
-                                        <h5>DJ SMITH</h5>
-                                    </a>
-                                    <p>The Album</p>
-                                </div>
-                            </div>
-
-                            <!-- Single Album -->
-                            <div class="single-album">
-                                <img src="/public/img/bg-img/a6.jpg" alt="">
-                                <div class="album-info">
-                                    <a href="#">
-                                        <h5>The Ustopable</h5>
-                                    </a>
-                                    <p>Unplugged</p>
-                                </div>
-                            </div>
-
-                            <!-- Single Album -->
-                            <div class="single-album">
-                                <img src="/public/img/bg-img/a7.jpg" alt="">
-                                <div class="album-info">
-                                    <a href="#">
-                                        <h5>Beyonce</h5>
-                                    </a>
-                                    <p>Songs</p>
-                                </div>
+    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="albums-slideshow owl-carousel">
+                                <% for (i = 0; i < newReleases.albums.items.length; i++) { %>
+                                    <div class="single-album">
+                                        <a href="<%= newReleases.albums.items[i].external_urls.spotify %>">
+                                            <img src="<%= newReleases.albums.items[i].images[0].url %>" alt="<%= newReleases.albums.items[i].name %>">
+                                        </a>
+                                        <div class="album-info">
+                                            <a href="<%= newReleases.albums.items[i].external_urls.spotify %>">
+                                                <h5><%= newReleases.albums.items[i].name %></h5>
+                                            </a>
+                                            <p>
+                                                <a href="<%= newReleases.albums.items[i].artists[0].external_urls.spotify %>">
+                                                    <%= newReleases.albums.items[i].artists[0].name %>
+                                                </a>
+                                                <% if (newReleases.albums.items[i].artists.length > 1) {
+                                                    j=1; while (j < newReleases.albums.items[i].artists.length){ %>
+                                                    | 
+                                                    <a class='text-decoration-none' href='<%= newReleases.albums.items[i].artists[j].external_urls.spotify %>' target='_blank'>
+                                                        <%= newReleases.albums.items[i].artists[j].name %> 
+                                                    </a> 
+                                                    <% j++ } 
+                                                } %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                <% } %>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
         <!-- ##### Latest Albums Area End ##### -->
 
         <!-- ##### Buy Now Area Start ##### -->
-        <section class="oneMusic-buy-now-area has-fluid bg-gray section-padding-100">
+        <section class="oneMusic-buy-now-area has-fluid bg-gray section-padding-100 border-top border-dark border-5">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="section-heading style-2">
-                            <p>O que temos agora?</p>
-                            <h2>Seria essa a área de todos os albuns?</h2>
+                            <h2>Recomendações</h2>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
+                    <% for (i = 0; i < recommendations.tracks.length; i++) { %>
 
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b1.jpg" alt="">
-
-                                <!-- Play Icon -->
-
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Garage Band</h5>
-                                </a>
-                                <p>Radio Station</p>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
+                                <div class="album-thumb">
+                                    <a href="<%= recommendations.tracks[i].album.external_urls.spotify %>">
+                                        <img src="<%= recommendations.tracks[i].album.images[0].url %>" alt="<%= recommendations.tracks[i].album.name %>">
+                                    </a>        
+                                </div>
+                                <div class="album-info">
+                                    <a href="<%= recommendations.tracks[i].album.external_urls.spotify %>">
+                                        <h5><%= recommendations.tracks[i].album.name %></h5>
+                                    </a>
+                                    <p>
+                                        <a href="<%= recommendations.tracks[i].artists[0].external_urls.spotify %>">
+                                            <%= recommendations.tracks[i].artists[0].name %>
+                                        </a>
+                                        <% if (recommendations.tracks[i].artists.length > 1) {
+                                            j=1; while (j < recommendations.tracks[i].artists.length){ %>
+                                            | 
+                                            <a class='text-decoration-none' href='<%= recommendations.tracks[i].artists[j].external_urls.spotify %>' target='_blank'>
+                                                <%= recommendations.tracks[i].artists[j].name %> 
+                                            </a> 
+                                            <% j++ } 
+                                        } %>
+                                    </p>
+                                    
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="200ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b2.jpg" alt="">
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Noises</h5>
-                                </a>
-                                <p>Buble Gum</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="300ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b3.jpg" alt="">
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Jess Parker</h5>
-                                </a>
-                                <p>The Album</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="400ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b4.jpg" alt="">
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Noises</h5>
-                                </a>
-                                <p>Buble Gum</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="500ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b1.jpg" alt="">
-                                <!-- Album Price -->
-
-                                <!-- Play Icon -->
-
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Garage Band</h5>
-                                </a>
-                                <p>Radio Station</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="600ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b2.jpg" alt="">
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Noises</h5>
-                                </a>
-                                <p>Buble Gum</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="100ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b3.jpg" alt="">
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Jess Parker</h5>
-                                </a>
-                                <p>The Album</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="200ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b4.jpg" alt="">
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Noises</h5>
-                                </a>
-                                <p>Buble Gum</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="300ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b1.jpg" alt="">
-                                <!-- Album Price -->
-
-                                <!-- Play Icon -->
-
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Garage Band</h5>
-                                </a>
-                                <p>Radio Station</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="400ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b2.jpg" alt="">
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Noises</h5>
-                                </a>
-                                <p>Buble Gum</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="500ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b3.jpg" alt="">
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Jess Parker</h5>
-                                </a>
-                                <p>The Album</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Album Area -->
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                        <div class="single-album-area wow fadeInUp" data-wow-delay="600ms">
-                            <div class="album-thumb">
-                                <img src="/public/img/bg-img/b4.jpg" alt="">
-                            </div>
-                            <div class="album-info">
-                                <a href="#">
-                                    <h5>Noises</h5>
-                                </a>
-                                <p>Buble Gum</p>
-                            </div>
-                        </div>
-                    </div>
-
+                        
+                    <% } %>
                 </div>
-
-
             </div>
         </section>
         <!-- ##### Buy Now Area End ##### -->
@@ -347,7 +128,7 @@
             <div class="row align-items-end">
                 <div class="col-12 col-md-5 col-lg-4">
                     <div class="featured-artist-thumb">
-                        <img src="/public/img/bg-img/fa-3.jpg" alt="">
+                        <img src="/public/img/bg-img/fa-3.jpg" alt="MC Gorila">
                     </div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-8">
@@ -404,13 +185,13 @@
                         <img src="/public/img/core-img/dev.jpg" class="border border-5 border-white rounded-circle mt-4 mb-4" width="25%">
                         <h3 class="text-white">Enri Orsi</h3>
                         <p class="h3 text-white">
-                            Olá, meu nome é Enri tenho
+                            Olá, meu nome é Enri, tenho
                             <script>
                                 var anoAtual = new Date().getFullYear();
                                 var idade = anoAtual - 2002;
                                 document.write(idade);
                             </script>
-                            anos, sou de São Paulo Capital e desenvolvi esse site completamente sozinho (até o momento kkkkkk), sou um programador apaixonado por jogos, tecnologia e música,
+                            anos, sou da cidade de São Paulo e desenvolvi esse site completamente sozinho (até o momento kkkkkk), sou um programador apaixonado por jogos, tecnologia e música,
                             sou integrante de uma banda de metal, 
                             <a href="https://www.instagram.com/badthoughtsofficial/" target="_blank" class="text-decoration-none text-white">
                                 Bad Thoughts in Prayers
@@ -418,7 +199,7 @@
                                 <a href="https://www.instagram.com/miw.brazil/" target="_blank" class="text-decoration-none text-white">
                                     Motionless in White Brasil
                                 </a>
-                            ). Criei esse site como um portifólio e para que eu e meus amigos se divirtam utilizando o mesmo para mostrar os seus gostos músicais, espero que goste!!
+                            ). Criei esse site como um portifólio e para que eu e meus amigos nos divirtam utilizando o mesmo para mostrar os seus gostos musicais, espero que gostem!!
                         </p>
 
                         <h3 class="text-white mt-3">
@@ -453,4 +234,11 @@
             </div>
         </div>
     </section>
+
+    <script>
+        var largura = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        if (largura < 1200){
+            $('#novosAlbuns').html('');
+        }
+    </script>
     <!-- ##### Contact Area End ##### -->
